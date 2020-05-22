@@ -1,0 +1,14 @@
+Package: sampleMplus
+Type: Package
+Title: Sample size determination for structural equation modeling
+Version: 0.1.0
+Author: Lijin Zhang[aut,cre], Rongqian Sun[aut], Junhao Pan[aut]
+Maintainer: Lijin Zhang <zhanglj37@mail2.sysu.edu.cn>
+Description: Using Monte Carlo simulation method,this package can explore the least sample size that have sufficient power and accpetable bias of estimates.
+Depends: MplusAutomation
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyLoad: yes
+LazyData: yes
+ByteCompile: true
+RoxygenNote: 6.1.1

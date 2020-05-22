@@ -66,7 +66,7 @@ ly_matrix = matrix(c(
 latentvar = c("X", "M", "Y")
 model = '
 Y ON X*0.3
-	M*0.2
+	M*0.3
 M ON X* 0.3;'
 # define the model in Mplus synatx
 # define the effect size using*
@@ -88,42 +88,52 @@ Running process:
 (1) Increase the sample size by 5 at a time, and check whether the increased sample size meets the power criteria. If it meets the criteria, terminate the increase: 
 
 ```r
-Running model: sample.inp 
-System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
-Reading model:  sample.out 
-[1] "This model needs at least 150 samples to reach a power of 0.598"
 
 Running model: sample.inp 
 System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
 Reading model:  sample.out 
-[1] "This model needs at least 155 samples to reach a power of 0.652"
+[1] "This model needs at least 120 samples to reach a power of 0.756"
+
+Running model: sample.inp 
+System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+Reading model:  sample.out 
+[1] "This model needs at least 125 samples to reach a power of 0.75"
 
 ......
 
 Running model: sample.inp 
 System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
 Reading model:  sample.out 
-[1] "This model needs at least 190 samples to reach a power of 0.804"
-[1] "try the sample size: 190"
+[1] "This model needs at least 135 samples to reach a power of 0.8"
 ```
 
 (2) Increase the sample size by 5 at a time, and check whether the increased sample size meets the criteria 2 - 3
 
 ```r
-[1] "try the sample size: 190"
+[1] "try the sample size: 135"
 
 Running model: sample.inp 
 System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
 Reading model:  sample.out 
 $bias_violation
-integer(0)
+numeric(0)
 
 $coverage_violation
-integer(0)
+numeric(0)
+
+$sample_size
+[1] 135
+
+$checking_results
+$checking_results$bias_violation
+numeric(0)
+
+$checking_results$coverage_violation
+numeric(0)
 
 ## Interpretation:
 ## criteria 2 & 3 are satisfied
-## the least sample size is 190
+## the least sample size is 135
 
 ```
 

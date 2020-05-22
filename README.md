@@ -246,3 +246,5 @@ or contact with us: sunrq@link.cuhk.edu.hk, zhanglj37@mail2.sysu.edu.cn.
 ## Functions under development
 
 Sample size determination for categorical data and multiple-group analysis.
+
+Providing prior in Bayesian analysis.

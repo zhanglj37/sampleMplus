@@ -144,35 +144,37 @@ Example of Mplus input file:
 ```
 TITLE: Simulation for sample size determination
 MONTECARLO: 
-	 NAMES = x1 - x3 	 m1 - m3 	 y1 - y4 ;
-	 NOBSERVATIONS =  190 ; 
+	 NAMES = x1 - x10 ;
+	 NOBSERVATIONS =  135 ; 
 	 NREPS = 500; 
 	 SEED = 1234; 
 
- MODEL POPULATION: 
+MODEL POPULATION: 
 	X  by 
 		x1*1 
 		x2*0.8 
 		x3*0.8 ; 
 	M  by 
-		m1*1 
-		m2*0.8 
-		m3*0.8 ; 
+		x4*1 
+		x5*0.8 
+		x6*0.8 ; 
 	Y  by 
-		y1*1 
-		y2*0.8 
-		y3*0.8 
-		y4*0.8 ; 
-	M ON X*0.3 ;
-	Y ON M*0.3 ;
-	Y ON X*0.2 ;
-	X*1; 
-	M*1; 
-	Y*1; 
-	x1 - x3*0.36 	 m1 - m3*0.36 	 y1 - y4*0.36 ;
+		x7*1 
+		x8*0.8 
+		x9*0.8 
+		x10*0.8 ; 
+	X*1 ;
+	M*1 ;
+	Y*1 ;
+	
+    Y ON X*0.3
+    M*0.3;
+    M ON X* 0.3; 
+	
+ 	x1 - x10*0.36 ;
 	
  ANALYSIS:
-	ESTIMATOR = ML; 
+	ESTIMATOR = ML ;
 
  MODEL: 
 	X  by 
@@ -181,21 +183,23 @@ MONTECARLO:
 		x3*0.8 ; 
 	X*1 ;
 	M  by 
-		m1 
-		m2*0.8 
-		m3*0.8 ; 
+		x4 
+		x5*0.8 
+		x6*0.8 ; 
 	M*1 ;
 	Y  by 
-		y1 
-		y2*0.8 
-		y3*0.8 
-		y4*0.8 ; 
+		x7 
+		x8*0.8 
+		x9*0.8 
+		x10*0.8 ; 
 	Y*1 ;
-	M ON X*0.3;
-	Y ON M*0.3;
-	Y ON X*0.2;
-	x1 - x3*0.36 	 m1 - m3*0.36 	 y1 - y4*0.36 ;
 	
+    x1 - x10*0.36 ;
+	
+    Y ON X*0.3
+    M*0.3;
+    M ON X* 0.3; 
+
 	
  OUTPUT: TECH9;
 
@@ -226,14 +230,14 @@ ly_matrix = matrix(c(
 # if you define the first loading of latent variable as 1, the fixed loading method would be used for model identification. 
 # Otherwise, the fixed variance method would be applied.
 
-latentvar = c("X", "M", "Z","Y")
+latentvar = c("X", "M", "Z", "Y")
 model = '
 Y ON X*0.3
 	M*0.2
 	Z*0.2;
 M ON X* 0.3;
 XZ | X XWITH Z;
-Y ON XZ*0.3;'
+M ON XZ*0.3;'
 
 analysis = 'Estimator = ML;
 	TYPE = RANDOM;

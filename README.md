@@ -20,7 +20,7 @@ The least sample size is chosen based on the following criteria:
 
 For structural coefficients :
 
-1. power is no less than 0.8;
+1. power ≥ 0.8;
 2. biases of point estimates do not exceed 10%;
 3. coverage rates of the frequentist confidence intervals or the Bayesian credible intervals is large than 0.91.
 

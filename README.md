@@ -14,9 +14,7 @@ author: Lijin Zhang, Rongqian Sun, Junhao Pan
 
 ## Description
 
-Using Monte Carlo simulation method, this "sampleMplus" (Sample size determination using Mplus) package can explore the least sample size for your model.
-
-
+Using Monte Carlo simulation method, this "sampleMplus" package can explore the least sample size for your structural equation models.
 
 The least sample size is chosen based on the following criteria:
 

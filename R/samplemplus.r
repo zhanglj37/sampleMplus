@@ -1,7 +1,7 @@
 
 sampleMplus <- function (ly_matrix, latentvar, model, estimator = 'ML', n0 = 150, analysis = 'no')
 {
-	samp_result = samplelm_power(ly_matrix, latentvar, model, estimator, n0,  analysis)
+	samp_result = samplePower(ly_matrix, latentvar, model, estimator, n0,  analysis)
 	
 	if (samp_result$power >0.799)
 	{

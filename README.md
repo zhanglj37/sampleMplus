@@ -230,7 +230,7 @@ Y ON XZ*0.3;'
 analysis = 'Estimator = ML;
 	TYPE = RANDOM;
     ALGORITHM = INTEGRATION;'
-# TYPE = RANDOM and ALGORITHM = INTEGRATION are necessary setting for latent moderation analysis.
+# TYPE = RANDOM and ALGORITHM = INTEGRATION are necessary settings for latent moderation analysis.
 # when the analysis part inclue settings for TYPE, ALGORITHM, INTEGRATION and so on, you need to define the analysis part using Mplus synatx.
 
 samplelm(ly_matrix, latentvar, model, estimator, n0 = 300, analysis)

@@ -109,7 +109,7 @@ Reading model:  sample.out
 [1] "try the sample size: 190"
 ```
 
-(2) Increase the sample size by 5 at a time, and check whether the increased sample size meets the criteria 2 - 4 
+(2) Increase the sample size by 5 at a time, and check whether the increased sample size meets the criteria 2 - 3
 
 ```r
 [1] "try the sample size: 190"
@@ -120,17 +120,11 @@ Reading model:  sample.out
 $bias_violation
 integer(0)
 
-$se_violation
-integer(0)
-
-$se_ab
-[1] TRUE
-
 $coverage_violation
 integer(0)
 
 ## Interpretation:
-## criteria 2 & 3 & 4 are satisfied
+## criteria 2 & 3 are satisfied
 ## the least sample size is 190
 
 ```

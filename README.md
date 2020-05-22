@@ -36,7 +36,7 @@ You can install it  from github using Hadley Wickham's 'devtools' package.
 install.packages("devtools")
 library(devtools)
 
-install_github("zhanglj37/samplelm")
+install_github("zhanglj37/sampleMplus")
 ```
 
 

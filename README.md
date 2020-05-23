@@ -41,7 +41,7 @@ install_github("zhanglj37/sampleMplus")
 ## Example 1: Latent Mediation Analysis
 
 ```r
-library(samplelm)
+library(sampleMplus)
 
 example model: https://www.lijinzhang.xyz/images/samplelm.jpg
 
@@ -208,23 +208,24 @@ MODEL POPULATION:
 ## Example 2: Moderated Mediation Analysis
 
 ```r
-library(samplelm)
-
-example model: https://www.lijinzhang.xyz/images/samplelm.jpg
+library(sampleMplus)
 
 # the effect size you should provide: loadings, structural coefficients
 ly_matrix = matrix(c(
-  1,0,0,
-  0.8,0,0,
-  0.8,0,0,
-  0,1,0,
-  0,0.8,0,
-  0,0.8,0,
-  0,0,1,
-  0,0,0.8,
-  0,0,0.8,
-  0,0,0.8
-),ncol=3,byr=T)
+  1,0,0,0,
+  0.8,0,0,0,
+  0.8,0,0,0,
+  0,1,0,0,
+  0,0.8,0,0,
+  0,0.8,0,0,
+  0,0,1,0,
+  0,0,0.8,0,
+  0,0,0.8,0,
+  0,0,0.8,0,
+  0,0,0,1,
+  0,0,0,0.8,
+  0,0,0,0.8
+),ncol=4,byr=T)
 # the loading matrix
 # the first-third column: the loadings for X, M, Y
 # if you define the first loading of latent variable as 1, the fixed loading method would be used for model identification. 

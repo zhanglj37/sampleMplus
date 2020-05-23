@@ -239,6 +239,7 @@ M ON X* 0.3;
 XZ | X XWITH Z;
 M ON XZ*0.3;'
 
+estimator = "ML" # or Bayes
 analysis = 'Estimator = ML;
 	TYPE = RANDOM;
     ALGORITHM = INTEGRATION;'

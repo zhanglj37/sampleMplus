@@ -29,7 +29,7 @@ cat(
 
 cat(
 	"NOBSERVATIONS = ", nsize, "; \n\t",
-	"NREPS = 500; \n\t",
+	"NREPS = 100; \n\t",
 	"SEED = 1234; \n",	
 	file = paste("sample.inp", sep = ''), append = T)
 

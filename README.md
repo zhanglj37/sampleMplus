@@ -22,7 +22,7 @@ For structural parameters:
 
 1. power ≥ 0.8;
 2. biases of point estimates ≤ 10%;
-3. coverage rates of the frequentist confidence intervals or the Bayesian credible intervals d＞ 0.91.
+3. coverage rates of the frequentist confidence intervals or the Bayesian credible intervals＞ 0.91.
 
 
 

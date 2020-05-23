@@ -18,11 +18,11 @@ Using Monte Carlo simulation method, this "sampleMplus" package can explore the 
 
 The least sample size is chosen based on the following criteria:
 
-For structural coefficients :
+For structural parameters:
 
 1. power ≥ 0.8;
-2. biases of point estimates do not exceed 10%;
-3. coverage rates of the frequentist confidence intervals or the Bayesian credible intervals is large than 0.91.
+2. biases of point estimates ≤ 10%;
+3. coverage rates of the frequentist confidence intervals or the Bayesian credible intervals d＞ 0.91.
 
 
 
@@ -74,7 +74,7 @@ M ON X* 0.3;'
 estimator = "ML" # or Bayes
 
 
-samplelm(ly_matrix, latentvar, model, estimator, n0 = 150)
+sampleMplus(ly_matrix, latentvar, model, estimator, n0 = 150)
 
 
 # n0: the least sample size this function return
@@ -243,9 +243,9 @@ analysis = 'Estimator = ML;
 	TYPE = RANDOM;
     ALGORITHM = INTEGRATION;'
 # TYPE = RANDOM and ALGORITHM = INTEGRATION are necessary settings for latent moderation analysis.
-# when the analysis part inclue settings for TYPE, ALGORITHM, INTEGRATION and so on, you need to define the analysis part using Mplus synatx.
+# when the analysis part inclue settings for TYPE, ALGORITHM, INTEGRATION and other parameters, you need to define the analysis part using Mplus synatx.
 
-samplelm(ly_matrix, latentvar, model, estimator, n0 = 300, analysis)
+sampleMplus(ly_matrix, latentvar, model, estimator, n0 = 300, analysis)
 
 ```
 
@@ -259,4 +259,4 @@ or contact with us: sunrq@link.cuhk.edu.hk, zhanglj37@mail2.sysu.edu.cn.
 
 Sample size determination for categorical data and multiple-group analysis.
 
-Providing prior in Bayesian analysis.
+Provide priors in Bayesian analysis.

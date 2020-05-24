@@ -85,7 +85,7 @@ samplePower(ly_matrix, latentvar, model, estimator, n0 = 150)
 
 Running process:
 
-(1) Increase the sample size by 5 at a time, and check whether the increased sample size meets the power criteria. If it meets the criteria, terminate the increase: 
+(1) Increase the sample size by 5 per run, and check whether the criteria 1 is satisfied. If it meets the criteria, terminate the increase: 
 
 ```r
 
@@ -107,7 +107,7 @@ Reading model:  sample.out
 [1] "This model needs at least 135 samples to reach a power of 0.8"
 ```
 
-(2) Increase the sample size by 5 at a time, and check whether the increased sample size meets the criteria 2 - 3
+(2) Increase the sample size by 5 per run, and check whether the criteria 2 - 3 is satisfied
 
 ```r
 [1] "try the sample size: 135"

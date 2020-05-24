@@ -60,8 +60,8 @@ ly_matrix = matrix(c(
 ),ncol=3,byr=T)
 # the loading matrix
 # the first-third column: the loadings for X, M, Y
-# if you define the first loading of latent variable as 1, the fixed loading method would be used for model identification. 
-# Otherwise, the fixed variance method would be applied.
+# if you define the first loading of latent variable at 1, the first loading would be fixed for model identification. 
+# Otherwise, the variance of latent variable would be fixed@1.
 
 latentvar = c("X", "M", "Y")
 model = '
@@ -227,9 +227,8 @@ ly_matrix = matrix(c(
   0,0,0,0.8
 ),ncol=4,byr=T)
 # the loading matrix
-# the first-third column: the loadings for X, M, Y
-# if you define the first loading of latent variable as 1, the fixed loading method would be used for model identification. 
-# Otherwise, the fixed variance method would be applied.
+# the first-forth column: the loadings for X, M, Z, Y
+
 
 latentvar = c("X", "M", "Z", "Y")
 model = '

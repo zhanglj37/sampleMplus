@@ -22,7 +22,7 @@ For structural parameters:
 
 1. power ≥ 0.8;
 2. biases of point estimates ≤ 10%;
-3. coverage rates of the frequentist confidence intervals or the Bayesian credible intervals＞ 0.91.
+3. coverage rates of the frequentist confidence intervals or the Bayesian credible intervals ＞ 0.91.
 
 
 
@@ -248,6 +248,62 @@ analysis = 'Estimator = ML;
 # when the analysis part inclue settings for TYPE, ALGORITHM, INTEGRATION and other parameters, you need to define the analysis part using Mplus synatx.
 
 sampleMplus(ly_matrix, latentvar, model, estimator, n0 = 300, analysis)
+
+```
+
+```r
+
+Running model: sample.inp 
+System command: C:\Windows\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+Reading model:  sample.out 
+[1] "This model needs at least 300 samples to reach a power of 0.83"
+[1] "try the sample size: 300"
+
+Running model: sample.inp 
+System command: C:\Windows\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+Reading model:  sample.out 
+$bias_violation
+numeric(0)
+
+$coverage_violation
+[1] 16
+
+## the coverage rate of one parameter ≤ 0.91
+## 16 represents the location of parameter
+
+[1] "try the sample size: 305"
+
+Running model: sample.inp 
+System command: C:\Windows\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+Reading model:  sample.out 
+$bias_violation
+numeric(0)
+
+$coverage_violation
+[1] 16
+
+[1] "try the sample size: 310"
+
+Running model: sample.inp 
+System command: C:\Windows\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+Reading model:  sample.out 
+$bias_violation
+numeric(0)
+
+$coverage_violation
+numeric(0)
+
+$sample_size
+[1] 310
+
+$checking_results
+$checking_results$bias_violation
+numeric(0)
+
+$checking_results$coverage_violation
+numeric(0)
+
+## the least sample size is 310
 
 ```
 

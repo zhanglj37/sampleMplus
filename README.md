@@ -66,7 +66,7 @@ ly_matrix = matrix(c(
 latentvar = c("X", "M", "Y")
 model = '
 Y ON X*0.3
-	M*0.3
+	M*0.3;
 M ON X* 0.3;'
 # define the model in Mplus synatx
 # define the effect size using*

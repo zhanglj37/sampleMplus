@@ -74,13 +74,13 @@ M ON X* 0.3;'
 estimator = "ML" # or Bayes
 
 
-sampleMplus(ly_matrix, latentvar, model, estimator, n0 = 150)
+sampleMplus(ly_matrix, latentvar, model, estimator, n0 = 120)
 
 
 # n0: the least sample size this function return
 
 # or choose the sample just base on the power criteria (criteria 1)
-samplePower(ly_matrix, latentvar, model, estimator, n0 = 150)
+samplePower(ly_matrix, latentvar, model, estimator, n0 = 120)
 ```
 
 Running process:

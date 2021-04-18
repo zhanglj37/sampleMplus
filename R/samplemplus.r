@@ -5,7 +5,7 @@ sampleMplus <- function (ly_matrix, latentvar, model, estimator = 'ML', N_m = 10
 	
 	if (samp_result$power >0.799)
 	{
-		ad_result = adjustment(ly_matrix, latentvar, model, estimator, N_m = samp_result$sample_size, analysis) 
+		ad_result = adjustment(ly_matrix, latentvar, model, estimator, N_s = samp_result$sample_size, N_m, analysis) 
 	}
 	
 	print(ad_result)
@@ -31,18 +31,8 @@ samplePower <- function(ly_matrix, latentvar, model, estimator, N_m = 1000,  ana
 		}
 		
 		pw<-min(result$pct_sig_coef[locon])
-		print(paste('This model needs at least ', i , ' samples to reach a power of ', pw,sep = ''))
+		print(paste('This model needs at least ', N_temp , ' samples to reach a power of ', pw,sep = ''))
 		
-
-		## copy inputfile to the generated working directory ./Sample size/Type
-		file.copy(paste(main.folder,'/input/', inpname,sep = ''),paste(run.folder, inpname ,sep = ''), overwrite = TRUE)
-
-		runModels(inpname)
-		#runModels(paste(Type,'.inp',sep=''))
-		result<-readModels(outname)
-		#result<-readModels(paste(Type,'.out',sep=''))
-		pw<-result$parameters$unstandardized$pct_sig_coef[which(result$parameters$unstandardized$paramHeader=="New.Additional.Parameters")]
-		print(paste('at least ', N_temp , ' samples to reach a power of ', pw,sep = ''))
 		if (pw > 0.799) {
 		if(N_m-N_temp<10){
 		break
@@ -109,20 +99,36 @@ checking_conds<-function(ly_matrix)
 
 
 ##### Adjusting sample size to meet bias and coverage criteria, if necessary 
-adjustment<- function(ly_matrix, latentvar, model, estimator, N_m = 300,  analysis) 
+adjustment<- function(ly_matrix, latentvar, model, estimator, N_s, N_m = 1000,  analysis) 
 {
-	repeat{
-		N_temp = ceiling((N_s+N_m)/2)
-	
-		print(paste0("try the sample size: ", N_temp))
-		mplus_gen(ly_matrix, latentvar, model, estimator, N_temp, analysis)
-		checking_result = checking_conds(ly_matrix)
+	print(paste0("try the sample size: ", N_s))
+	mplus_gen(ly_matrix, latentvar, model, estimator, N_s, analysis)
+	checking_result = checking_conds(ly_matrix)
 
-		print(checking_result)
-		if ((length(checking_result$bias_violation) == 0)
-			&( length(checking_result$coverage_violation) ==0)) {n = N_temp; break}
+	print(checking_result)
+	if ((length(checking_result$bias_violation) == 0)
+		&( length(checking_result$coverage_violation) ==0)) {N_temp = N_s
+	}else{
+		repeat{
+			N_temp = ceiling((N_s+N_m)/2)
+		
+			print(paste0("try the sample size: ", N_temp))
+			mplus_gen(ly_matrix, latentvar, model, estimator, N_temp, analysis)
+			checking_result = checking_conds(ly_matrix)
+
+			print(checking_result)
+			if ((length(checking_result$bias_violation) == 0)
+				&( length(checking_result$coverage_violation) ==0)) {
+					if(N_m-N_temp<10){
+					break
+					}
+					N_m=N_temp
+			}else{
+				N_s=N_temp
+			}
+		}
 	}
-	ad_result = list(sample_size = n, checking_results = checking_result)
+	ad_result = list(sample_size = N_temp, checking_results = checking_result)
 	return(ad_result)
 }
 

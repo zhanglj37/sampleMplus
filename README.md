@@ -1,7 +1,7 @@
 
 # sampleMplus
 
-update: May 22, 2020
+update: Apr 18, 2021
 
 author: Lijin Zhang, Rongqian Sun, Junhao Pan
 
@@ -16,7 +16,7 @@ author: Lijin Zhang, Rongqian Sun, Junhao Pan
 
 Using Monte Carlo simulation method, this "sampleMplus" package can explore the least sample size for your structural equation models.
 
-The least sample size is chosen based on the following criteria:
+The least sample size is chosen using binary search based on the following criteria:
 
 For structural parameters:
 
@@ -74,46 +74,60 @@ M ON X* 0.3;'
 estimator = "ML" # or Bayes
 
 
-sampleMplus(ly_matrix, latentvar, model, estimator, n0 = 120)
+sampleMplus(ly_matrix, latentvar, model, estimator, N_m = 300)
 
 
-# n0: the least sample size this function return
+# search the appropriate sample size between 0 and N_m
 
 # or choose the sample just base on the power criteria (criteria 1)
-samplePower(ly_matrix, latentvar, model, estimator, n0 = 120)
+samplePower(ly_matrix, latentvar, model, estimator, N_m = 120)
 ```
 
 Running process:
 
-(1) Increase the sample size by 5 per run, and check whether the criteria 1 is satisfied. If it meets the criteria, terminate the increase: 
+(1) search the appropriate sample size between 0 and N_m using the binary search,  check whether the criteria 1 is satisfied, stop when (a) the slected sample size meet the crietria for the power; (b) |the selected sample size - upper or lower bound of the current binary search| < 10: 
 
 ```r
 
 Running model: sample.inp 
-System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
-[1] "This model needs at least 120 samples to reach a power of 0.756"
+[1] "This model needs at least 150 samples to reach a power of 0.81"
 
 Running model: sample.inp 
-System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
-[1] "This model needs at least 125 samples to reach a power of 0.75"
-
-......
+[1] "This model needs at least 75 samples to reach a power of 0.47"
 
 Running model: sample.inp 
-System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
-[1] "This model needs at least 135 samples to reach a power of 0.8"
+[1] "This model needs at least 113 samples to reach a power of 0.67"
+
+Running model: sample.inp 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
+Reading model:  sample.out 
+[1] "This model needs at least 132 samples to reach a power of 0.76"
+
+Running model: sample.inp 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
+Reading model:  sample.out 
+[1] "This model needs at least 141 samples to reach a power of 0.79"
+
+Running model: sample.inp 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
+Reading model:  sample.out 
+[1] "This model needs at least 146 samples to reach a power of 0.8"
+
 ```
 
-(2) Increase the sample size by 5 per run, and check whether the criteria 2 - 3 is satisfied
+(2) search the appropriate sample size between the selected sample size and N_m using the binary search, and check whether the criteria 2 - 3 is satisfied
 
 ```r
-[1] "try the sample size: 135"
+[1] "try the sample size: 146"
 
 Running model: sample.inp 
-System command: C:\WINDOWS\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
 $bias_violation
 numeric(0)
@@ -121,19 +135,9 @@ numeric(0)
 $coverage_violation
 numeric(0)
 
-$sample_size
-[1] 135
-
-$checking_results
-$checking_results$bias_violation
-numeric(0)
-
-$checking_results$coverage_violation
-numeric(0)
-
 ## Interpretation:
 ## criteria 2 & 3 are satisfied
-## the least sample size is 135
+## the least sample size is 146
 
 ```
 
@@ -145,7 +149,7 @@ Example of Mplus input file:
 TITLE: Simulation for sample size determination
 MONTECARLO: 
 	 NAMES = x1 - x10 ;
-	 NOBSERVATIONS =  135 ; 
+	 NOBSERVATIONS =  146 ; 
 	 NREPS = 500; 
 	 SEED = 1234; 
 
@@ -246,7 +250,7 @@ analysis = 'Estimator = ML;
 # TYPE = RANDOM and ALGORITHM = INTEGRATION are necessary settings for latent moderation analysis.
 # when the analysis part inclue settings for TYPE, ALGORITHM, INTEGRATION and other parameters, you need to define the analysis part using Mplus synatx.
 
-sampleMplus(ly_matrix, latentvar, model, estimator, n0 = 300, analysis)
+sampleMplus(ly_matrix, latentvar, model, estimator, N_m = 500, analysis)
 
 ```
 
@@ -316,4 +320,4 @@ or contact with us: sunrq@link.cuhk.edu.hk, zhanglj37@mail2.sysu.edu.cn.
 
 Sample size determination for categorical data and multiple-group analysis.
 
-Provide priors in Bayesian analysis.
+Simulation with non-normally distributed datasets

@@ -1,38 +1,59 @@
 
-sampleMplus <- function (ly_matrix, latentvar, model, estimator = 'ML', n0 = 150, analysis = 'no')
+sampleMplus <- function (ly_matrix, latentvar, model, estimator = 'ML', N_m = 1000, analysis = 'no')
 {
-	samp_result = samplePower(ly_matrix, latentvar, model, estimator, n0,  analysis)
+	samp_result = samplePower(ly_matrix, latentvar, model, estimator, N_m,  analysis)
 	
 	if (samp_result$power >0.799)
 	{
-		ad_result = adjustment(ly_matrix, latentvar, model, estimator, n0 = samp_result$sample_size, analysis) 
+		ad_result = adjustment(ly_matrix, latentvar, model, estimator, N_m = samp_result$sample_size, analysis) 
 	}
 	
 	print(ad_result)
 }
 
 
-samplePower <- function(ly_matrix, latentvar, model, estimator, n0 = 150,  analysis) {
-	for (i in seq(n0,n0+1000,5)) {
-	mplus_gen(ly_matrix, latentvar, model, estimator, i, analysis)
-	result<-readModels("sample.out")$parameters$unstandardized
+samplePower <- function(ly_matrix, latentvar, model, estimator, N_m = 1000,  analysis) {
+	N_s = 0
+	repeat{
+		N_temp = ceiling((N_s+N_m)/2)
+		mplus_gen(ly_matrix, latentvar, model, estimator, N_temp, analysis)
+		result<-readModels("sample.out")$parameters$unstandardized
 	
-	locon = 0
-	k = 1
-	for (oni in 1:dim(result)[1])
-	{
-		if(substr(result[oni,1], nchar(result[oni,1])-2, nchar(result[oni,1])) == ".ON")
+		locon = 0
+		k = 1
+		for (oni in 1:dim(result)[1])
 		{
-			locon[k] = oni
-			k = k + 1
+			if(substr(result[oni,1], nchar(result[oni,1])-2, nchar(result[oni,1])) == ".ON")
+			{
+				locon[k] = oni
+				k = k + 1
+			}
+		}
+		
+		pw<-min(result$pct_sig_coef[locon])
+		print(paste('This model needs at least ', i , ' samples to reach a power of ', pw,sep = ''))
+		
+
+		## copy inputfile to the generated working directory ./Sample size/Type
+		file.copy(paste(main.folder,'/input/', inpname,sep = ''),paste(run.folder, inpname ,sep = ''), overwrite = TRUE)
+
+		runModels(inpname)
+		#runModels(paste(Type,'.inp',sep=''))
+		result<-readModels(outname)
+		#result<-readModels(paste(Type,'.out',sep=''))
+		pw<-result$parameters$unstandardized$pct_sig_coef[which(result$parameters$unstandardized$paramHeader=="New.Additional.Parameters")]
+		print(paste('at least ', N_temp , ' samples to reach a power of ', pw,sep = ''))
+		if (pw > 0.799) {
+		if(N_m-N_temp<10){
+		break
+		}
+		N_m=N_temp
+		}else{
+			N_s=N_temp
 		}
 	}
-	
-	pw<-min(result$pct_sig_coef[locon])
-	print(paste('This model needs at least ', i , ' samples to reach a power of ', pw,sep = ''))
-	if (pw > 0.79) {n = i; p = pw; break}
-	}
-	samp_result = list(sample_size = n, power = pw)
+ 
+	samp_result = list(sample_size = N_temp, power = pw)
 	return(samp_result)
 }
 
@@ -88,17 +109,18 @@ checking_conds<-function(ly_matrix)
 
 
 ##### Adjusting sample size to meet bias and coverage criteria, if necessary 
-adjustment<- function(ly_matrix, latentvar, model, estimator, n0 = 300,  analysis) 
+adjustment<- function(ly_matrix, latentvar, model, estimator, N_m = 300,  analysis) 
 {
-	for (i in seq(n0,n0+500,5)) 
-	{
-		print(paste0("try the sample size: ", i))
-		mplus_gen(ly_matrix, latentvar, model, estimator, i, analysis)
+	repeat{
+		N_temp = ceiling((N_s+N_m)/2)
+	
+		print(paste0("try the sample size: ", N_temp))
+		mplus_gen(ly_matrix, latentvar, model, estimator, N_temp, analysis)
 		checking_result = checking_conds(ly_matrix)
 
 		print(checking_result)
 		if ((length(checking_result$bias_violation) == 0)
-			&( length(checking_result$coverage_violation) ==0)) {n = i; break}
+			&( length(checking_result$coverage_violation) ==0)) {n = N_temp; break}
 	}
 	ad_result = list(sample_size = n, checking_results = checking_result)
 	return(ad_result)

@@ -102,7 +102,6 @@ checking_conds<-function(ly_matrix)
 adjustment<- function(ly_matrix, latentvar, model, estimator, N_s, N_m = 1000,  analysis) 
 {
 	print(paste0("try the sample size: ", N_s))
-	mplus_gen(ly_matrix, latentvar, model, estimator, N_s, analysis)
 	checking_result = checking_conds(ly_matrix)
 
 	print(checking_result)

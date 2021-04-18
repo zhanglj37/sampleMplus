@@ -14,17 +14,15 @@ author: Lijin Zhang, Rongqian Sun, Junhao Pan
 
 ## Description
 
-Using Monte Carlo simulation method, this "sampleMplus" package can explore the least sample size for your structural equation models.
+Using Monte Carlo simulation method and the binary search, this "sampleMplus" package can explore the least sample size for your structural equation models.
 
-The least sample size is chosen using binary search based on the following criteria:
+The least sample size is chosen based on the following criteria:
 
 For structural parameters:
 
 1. power ≥ 0.8;
 2. biases of point estimates ≤ 10%;
 3. coverage rates of the frequentist confidence intervals or the Bayesian credible intervals ＞ 0.91.
-
-
 
 ## Installation
 
@@ -36,6 +34,33 @@ library(devtools)
 
 install_github("zhanglj37/sampleMplus")
 ```
+
+Process:
+
+```
+Downloading GitHub repo zhanglj37/sampleMplus@master
+
+   checking for file ‘/private/var/folders/t9/55w78nl93k5_wzw3kmdhlkqc0000gn/T/R✔  checking for file ‘/private/var/folders/t9/55w78nl93k5_wzw3kmdhlkqc0000gn/T/RtmpF5zvTW/remotes78266262bae1/zhanglj37-sampleMplus-c5b5c35/DESCRIPTION’
+─  preparing ‘sampleMplus’:
+✔  checking DESCRIPTION meta-information ...
+─  checking for LF line-endings in source and make files and shell scripts
+─  checking for empty or unneeded directories
+─  building ‘sampleMplus_0.1.0.tar.gz’
+   
+* installing *source* package ‘sampleMplus’ ...
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+** help
+No man pages found in package  ‘sampleMplus’ 
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (sampleMplus)
+```
+
 
 
 ## Example 1: Latent Mediation Analysis
@@ -80,12 +105,14 @@ sampleMplus(ly_matrix, latentvar, model, estimator, N_m = 300)
 # search the appropriate sample size between 0 and N_m
 
 # or choose the sample just base on the power criteria (criteria 1)
-samplePower(ly_matrix, latentvar, model, estimator, N_m = 120)
+samplePower(ly_matrix, latentvar, model, estimator, N_m = 300)
 ```
 
 Running process:
 
-(1) search the appropriate sample size between 0 and N_m using the binary search,  check whether the criteria 1 is satisfied, stop when (a) the slected sample size meet the crietria for the power; (b) |the selected sample size - upper or lower bound of the current binary search| < 10: 
+running time < 1 minute with MacOS system, i5-9400f CPU@2.9GHZ, 16GB memory
+
+(1) search the appropriate sample size between 0 and N_m using the binary search,  check whether the criteria 1 is satisfied, stop when (a) the slected sample size meet the crietria for the power; (b) |the selected sample size - upper bound of the current binary search| < 10: 
 
 ```r
 
@@ -126,8 +153,6 @@ Reading model:  sample.out
 ```r
 [1] "try the sample size: 146"
 
-Running model: sample.inp 
-System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
 $bias_violation
 numeric(0)
@@ -257,38 +282,38 @@ sampleMplus(ly_matrix, latentvar, model, estimator, N_m = 500, analysis)
 ```r
 
 Running model: sample.inp 
-System command: C:\Windows\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
-[1] "This model needs at least 300 samples to reach a power of 0.83"
-[1] "try the sample size: 300"
+[1] "This model needs at least 250 samples to reach a power of 0.75"
 
 Running model: sample.inp 
-System command: C:\Windows\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
-$bias_violation
-numeric(0)
-
-$coverage_violation
-[1] 16
-
-## the coverage rate of one parameter ≤ 0.91
-## 16 represents the location of parameter
-
-[1] "try the sample size: 305"
+[1] "This model needs at least 375 samples to reach a power of 0.88"
 
 Running model: sample.inp 
-System command: C:\Windows\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
-$bias_violation
-numeric(0)
-
-$coverage_violation
-[1] 16
-
-[1] "try the sample size: 310"
+[1] "This model needs at least 313 samples to reach a power of 0.81"
 
 Running model: sample.inp 
-System command: C:\Windows\system32\cmd.exe /c cd "." && "Mplus" "sample.inp" 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
+Reading model:  sample.out 
+[1] "This model needs at least 282 samples to reach a power of 0.77"
+
+Running model: sample.inp 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
+Reading model:  sample.out 
+[1] "This model needs at least 298 samples to reach a power of 0.79"
+
+Running model: sample.inp 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
+Reading model:  sample.out 
+[1] "This model needs at least 306 samples to reach a power of 0.84"
+[1] "try the sample size: 306"
+
+Running model: sample.inp 
+System command: cd "." && "/Applications/Mplus/mplus" "sample.inp" 
 Reading model:  sample.out 
 $bias_violation
 numeric(0)
@@ -297,7 +322,7 @@ $coverage_violation
 numeric(0)
 
 $sample_size
-[1] 310
+[1] 306
 
 $checking_results
 $checking_results$bias_violation
@@ -306,7 +331,8 @@ numeric(0)
 $checking_results$coverage_violation
 numeric(0)
 
-## the least sample size is 310
+
+## the least sample size is 306
 
 ```
 
@@ -321,3 +347,4 @@ or contact with us: sunrq@link.cuhk.edu.hk, zhanglj37@mail2.sysu.edu.cn.
 Sample size determination for categorical data and multiple-group analysis.
 
 Simulation with non-normally distributed datasets
+

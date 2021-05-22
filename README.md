@@ -14,9 +14,9 @@ author: Lijin Zhang, Rongqian Sun, Junhao Pan
 
 ## Description
 
-Using Monte Carlo simulation method and the binary search, this "sampleMplus" package can explore the least sample size for your structural equation models.
+Using Monte Carlo simulation method and the binary search, this "sampleMplus" package can provide sample size recommendation for your structural equation models.
 
-The least sample size is chosen based on the following criteria:
+The sample size is chosen based on the following criteria:
 
 For structural parameters:
 
@@ -338,7 +338,7 @@ numeric(0)
 
 ## BugsReports
 
-https://github.com/zhanglj37/blcfa/issues
+https://github.com/zhanglj37/sampleMplus/issues
 
 or contact with us: sunrq@link.cuhk.edu.hk, zhanglj37@mail2.sysu.edu.cn.
 
@@ -348,3 +348,4 @@ Sample size determination for categorical data and multiple-group analysis.
 
 Simulation with non-normally distributed datasets
 
+Replace the complex measurement models with single-indicator models in the simulation. In this way, researchers can set the measurement models easily based on the reliability of the scale.

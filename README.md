@@ -35,33 +35,6 @@ library(devtools)
 install_github("zhanglj37/sampleMplus")
 ```
 
-Process:
-
-```
-Downloading GitHub repo zhanglj37/sampleMplus@master
-
-   checking for file ‘/private/var/folders/t9/55w78nl93k5_wzw3kmdhlkqc0000gn/T/R✔  checking for file ‘/private/var/folders/t9/55w78nl93k5_wzw3kmdhlkqc0000gn/T/RtmpF5zvTW/remotes78266262bae1/zhanglj37-sampleMplus-c5b5c35/DESCRIPTION’
-─  preparing ‘sampleMplus’:
-✔  checking DESCRIPTION meta-information ...
-─  checking for LF line-endings in source and make files and shell scripts
-─  checking for empty or unneeded directories
-─  building ‘sampleMplus_0.1.0.tar.gz’
-   
-* installing *source* package ‘sampleMplus’ ...
-** using staged installation
-** R
-** byte-compile and prepare package for lazy loading
-** help
-No man pages found in package  ‘sampleMplus’ 
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded from temporary location
-** testing if installed package can be loaded from final location
-** testing if installed package keeps a record of temporary installation path
-* DONE (sampleMplus)
-```
-
-
 
 ## Example 1: Latent Mediation Analysis
 
